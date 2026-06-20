@@ -4,7 +4,7 @@ const Property = require("../models/Property");
 // Public — no token required. Supports filtering by city, minPrice, maxPrice.
 const getProperties = async (req, res) => {
   try {
-    const { city, minPrice, maxPrice, listingType } = req.query;
+    const { city, country, minPrice, maxPrice, listingType } = req.query;
 
     // Build the filter object dynamically — only add keys the client actually sent.
     // An empty filter object {} returns all documents.
@@ -13,6 +13,11 @@ const getProperties = async (req, res) => {
     if (city) {
       // Case-insensitive regex lets "Lagos" match "lagos" or "LAGOS"
       filter.city = { $regex: city, $options: "i" };
+    }
+
+    if (country) {
+      // Case-insensitive regex lets "Nigeria" match "nigeria" or "NIGERIA"
+      filter.country = { $regex: country, $options: "i" };
     }
 
     if (minPrice || maxPrice) {
@@ -60,7 +65,7 @@ const getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id).populate(
       "owner",
-      "username avatar name"
+      "username avatar name",
     );
 
     if (!property) {
@@ -79,8 +84,16 @@ const getPropertyById = async (req, res) => {
 // Protected — authenticated users only.
 const createProperty = async (req, res) => {
   try {
-    const { title, description, price, city, country, type, images, listingType } =
-      req.body;
+    const {
+      title,
+      description,
+      price,
+      city,
+      country,
+      type,
+      images,
+      listingType,
+    } = req.body;
 
     // Validate all required fields before touching the DB
     if (!title || !description || !price || !city || !country || !type) {
@@ -132,8 +145,16 @@ const updateProperty = async (req, res) => {
         .json({ message: "Not authorized to update this property" });
     }
 
-    const { title, description, price, city, country, type, images, listingType } =
-      req.body;
+    const {
+      title,
+      description,
+      price,
+      city,
+      country,
+      type,
+      images,
+      listingType,
+    } = req.body;
 
     // Update only the fields that were sent — don't overwrite omitted fields with undefined
     const updates = {};
@@ -151,7 +172,7 @@ const updateProperty = async (req, res) => {
     const updated = await Property.findByIdAndUpdate(
       req.params.id,
       { $set: updates },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     res.status(200).json(updated);
