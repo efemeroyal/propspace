@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
@@ -5,6 +6,7 @@ import toast from "react-hot-toast";
 import { authAPI } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 import InputField from "../components/ui/InputField";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function Login() {
   const { login } = useAuth();
@@ -14,6 +16,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
 
   const mutation = useMutation({
     mutationFn: authAPI.login,
@@ -49,14 +52,26 @@ export default function Login() {
           register={register("email", {
             required: "Email identity is mandatory",
           })}
+          placeholder="yourname@example.com"
         />
+
         <InputField
           label="Account Password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           error={errors.password}
           register={register("password", {
             required: "Verification credential required",
           })}
+          placeholder="••••••••"
+          suffix={
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-[#8896AB] hover:text-[#F7F4EF] transition-colors"
+            >
+              {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            </button>
+          }
         />
 
         <button
@@ -71,7 +86,7 @@ export default function Login() {
       <p className="text-xs text-center text-[#8896AB] mt-6">
         No account registered?{" "}
         <Link to="/register" className="text-[#F5A623] hover:underline">
-          Create profile credentials
+          Register here
         </Link>
       </p>
     </div>
