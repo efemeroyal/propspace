@@ -1,4 +1,4 @@
-import { HiOutlineMapPin, HiOutlineHome } from "react-icons/icons/hi2";
+import { HiOutlineMapPin } from "react-icons/hi2";
 import { FiTrash2, FiEdit3 } from "react-icons/fi";
 
 export default function PropertyCard({ property, isOwner, onEdit, onDelete }) {

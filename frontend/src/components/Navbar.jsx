@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { HiOutlineHomeModern } from "react-icons/icons/hi2";
+import { HiOutlineHomeModern } from "react-icons/hi2";
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
