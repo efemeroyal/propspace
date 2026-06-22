@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.API_BASE_URL; // Swap out with your operational backend URL
+const BASE_URL = "http://localhost:5000/api";
 
 export async function client(endpoint, { body, ...customConfig } = {}) {
   const token = localStorage.getItem("prop_token");

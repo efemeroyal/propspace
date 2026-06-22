@@ -16,14 +16,15 @@ export default function PropertyCard({ property, isOwner, onEdit, onDelete }) {
         />
         {/* Signature Element: Price Pill bottom-left overlay */}
         <div className="absolute bottom-3 left-3 bg-[#F5A623] text-[#0F1B2D] text-xs font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-lg">
-          {new Intl.NumberFormat("en-US", {
+          {new Intl.NumberFormat("fr-CM", {
             style: "currency",
-            currency: property.currency || "USD",
+            currency: "CFA",
             maximumFractionDigits: 0,
           }).format(property.price)}
         </div>
         <div className="absolute top-3 right-3 bg-[#0F1B2D]/80 backdrop-blur-sm text-[#F7F4EF] text-xs px-2.5 py-1 rounded-full font-medium border border-[#25354C]">
-          {property.propertyType}
+          {property.listingType.slice(0, 1).toUpperCase() +
+            property.listingType.slice(1)}
         </div>
       </div>
 
@@ -42,7 +43,7 @@ export default function PropertyCard({ property, isOwner, onEdit, onDelete }) {
           <div className="flex items-center gap-1.5 text-xs text-[#8896AB] mb-4">
             <HiOutlineMapPin className="text-[#F5A623] shrink-0" size={16} />
             <span className="truncate">
-              {property.location?.city}, {property.location?.country}
+              {property?.city}, {property?.country}
             </span>
           </div>
 

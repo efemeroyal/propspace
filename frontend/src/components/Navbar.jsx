@@ -14,7 +14,9 @@ export default function Navbar() {
           className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#F7F4EF]"
         >
           <HiOutlineHomeModern className="text-[#F5A623]" size={26} />
-          Prop<span className="text-[#F5A623]">Space</span>
+          <p>
+            Prop<span className="text-[#F5A623]">Space</span>
+          </p>
         </Link>
 
         <div className="flex items-center gap-4 text-sm font-medium">
