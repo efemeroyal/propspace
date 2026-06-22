@@ -34,7 +34,7 @@ export default function Login() {
     <div className="max-w-md w-full mx-auto bg-[#162235] border border-[#25354C] rounded-2xl p-8 mt-12 shadow-2xl">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-extrabold tracking-tight">
-          Access Terminal
+          Login to Your Account
         </h2>
         <p className="text-xs text-[#8896AB] mt-1">
           Sign in to manage your premium property assets

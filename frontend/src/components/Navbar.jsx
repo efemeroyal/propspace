@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#122035] border-b border-[#1E2E46] sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link
           to="/"
           className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#F7F4EF]"
