@@ -25,7 +25,7 @@ export default function Dashboard() {
     queryFn: propertiesAPI.getMine,
   });
 
-  // 2. Update Mutation (The missing piece)
+  // 2. Update Mutation
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => propertiesAPI.update(id, data),
     onSuccess: () => {
@@ -54,12 +54,11 @@ export default function Dashboard() {
       title: property.title,
       description: property.description,
       price: property.price,
-      propertyType: property.propertyType,
-      city: property?.city,
-      country: property?.country,
-      imageUrl: property.imageUrl,
-      "location.city": property.location?.city,
-      "location.country": property.location?.country,
+      type: property.type,
+      city: property.city,
+      country: property.country,
+      imageUrl: property.images[0] || "",
+      listingType: property.listingType,
     });
   };
 
@@ -69,12 +68,11 @@ export default function Dashboard() {
       title: data.title,
       description: data.description,
       price: Number(data.price),
-      propertyType: data.propertyType,
-      imageUrl: data.imageUrl,
-      location: {
-        city: data["location.city"],
-        country: data["location.country"],
-      },
+      type: data.propertyType,
+      images: [data.imageUrl], // Wrap single URL in array
+      city: data.city,
+      country: data.country,
+      listingType: data.listingType.toLowerCase(),
     };
     updateMutation.mutate({ id: editingProperty._id, data: formattedData });
   };
@@ -180,20 +178,32 @@ export default function Dashboard() {
                     <option value="Studio">Studio</option>
                   </select>
                 </div>
+                <div className="w-full flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#8896AB]">
+                    Property Status
+                  </label>
+                  <select
+                    {...register("listingType", { required: true })}
+                    className="w-full px-4 py-3 bg-[#1A2638] border border-[#2A3B54] rounded-lg text-[#F7F4EF] focus:outline-none focus:border-[#F5A623] transition-colors text-sm"
+                  >
+                    <option value="Sale">Sale</option>
+                    <option value="Rent">Rent</option>
+                  </select>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <InputField
                   label="City"
                   error={errors["location.city"]}
-                  register={register("location.city", {
+                  register={register("city", {
                     required: "City required",
                   })}
                 />
                 <InputField
                   label="Country"
                   error={errors["location.country"]}
-                  register={register("location.country", {
+                  register={register("country", {
                     required: "Country required",
                   })}
                 />

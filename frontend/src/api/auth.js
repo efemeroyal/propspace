@@ -5,9 +5,9 @@ export const authAPI = {
     client("/auth/login", { body: credentials, method: "POST" }),
   register: (userData) =>
     client("/auth/register", { body: userData, method: "POST" }),
-  getProfile: () => client("/auth/profile"),
+  getProfile: () => client("/users/me"),
   updateProfile: (metrics) =>
-    client("/auth/profile", { body: metrics, method: "PUT" }),
+    client("/users/me", { body: metrics, method: "PUT" }),
   updatePassword: (passwords) =>
-    client("/auth/profile/password", { body: passwords, method: "PUT" }),
+    client("/users/me/password", { body: passwords, method: "PUT" }),
 };
